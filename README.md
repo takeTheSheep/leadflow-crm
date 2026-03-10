@@ -1,36 +1,275 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LeadFlow CRM
 
-## Getting Started
+LeadFlow CRM is a premium, production-minded demo SaaS for lead operations teams.
 
-First, run the development server:
+It demonstrates full-stack architecture for modern B2B workflows: secure authentication, role-based access, lead lifecycle management, pipeline operations, analytics, activity auditing, and settings governance.
+
+## Product Concept
+
+LeadFlow CRM helps teams:
+
+- capture and qualify inbound leads
+- assign ownership with role-based control
+- progress opportunities through a visual pipeline
+- log notes/tasks/activity history for accountability
+- monitor conversion and forecast metrics from dashboards
+
+## Tech Stack
+
+### Frontend
+
+- Next.js (App Router) + TypeScript
+- Tailwind CSS (custom premium light system)
+- React Hook Form + Zod
+- TanStack Table
+- Recharts
+- Zustand (UI state)
+
+### Backend
+
+- Next.js Route Handlers + Server Actions
+- Prisma ORM
+- PostgreSQL
+- NextAuth Credentials authentication
+- Role-based authorization layer
+- Validation + security wrappers + rate-limiting abstraction
+
+## Core Features
+
+### Marketing + Auth
+
+- Landing page with premium sections and interactive preview
+- Features, Pricing, Security, Privacy, Terms pages
+- Login page
+- Demo workspace registration flow
+
+### Authenticated Application
+
+- Dashboard: KPI cards, trend charts, activities, follow-up queue, team mini-performance
+- Leads: searchable/filterable/sortable table, pagination, selection, bulk actions, quick-create modal
+- Lead Detail: overview, notes, activity, tasks, quick actions, file/email placeholders
+- Pipeline: kanban-style stage board with value totals and stage movement
+- Analytics: funnel, source performance, stage velocity, completion, forecast
+- Activity: chronological audit feed with filters
+- Team: role-aware performance cards and leaderboard
+- Settings: profile, workspace, notifications, security, permissions, integration placeholders
+
+## Security and Hardening Notes
+
+Implemented foundations:
+
+- server-side Zod validation for mutations
+- workspace-scoped queries and mutations
+- role-based authorization checks on sensitive operations
+- credential hashing with bcrypt
+- login rate-limiting and mutation throttling abstraction
+- audit trail records for lead lifecycle actions
+- soft delete pattern for leads
+- safe error shaping (no sensitive details leakage)
+- secure middleware headers
+
+Roadmap placeholders included for:
+
+- 2FA
+- anomaly detection
+- email verification
+- bot protection
+- webhook signature verification
+- observability/alerting hooks
+
+## Architecture Summary
+
+Domain entities:
+
+- User, Workspace, Membership
+- Lead, LeadNote, LeadActivity
+- Task
+- Tag, LeadTag
+- LeadSource
+- PipelineStage
+- Notification
+- SavedFilter
+- LoginEvent
+- NextAuth Account/Session/VerificationToken
+
+Layering approach:
+
+- `src/app` for routes/pages
+- `src/components` for reusable UI
+- `src/lib/validation` for schema validation
+- `src/lib/permissions` for RBAC rules
+- `src/lib/repositories` for query composition
+- `src/lib/services` for business logic and audit-aware mutations
+- `src/server/queries` and `src/server/actions` for server entry points
+- `src/lib/security` and `src/lib/rate-limit` for hardening primitives
+
+## Folder Structure
+
+```text
+.
+|-- prisma/
+|   |-- schema.prisma
+|   `-- seed.ts
+|-- public/
+|   |-- images/
+|   |-- icons/
+|   `-- og/
+|-- src/
+|   |-- app/
+|   |   |-- (marketing)/
+|   |   |-- (auth)/
+|   |   |-- (dashboard)/
+|   |   `-- api/
+|   |-- components/
+|   |-- lib/
+|   |-- server/
+|   |-- hooks/
+|   |-- store/
+|   |-- types/
+|   |-- constants/
+|   |-- data/
+|   |-- emails/
+|   `-- config/
+|-- middleware.ts
+|-- .env.example
+`-- README.md
+```
+
+## Local Setup
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Copy env file and configure:
+
+```bash
+cp .env.example .env
+```
+
+3. Generate Prisma client:
+
+```bash
+npm run prisma:generate
+```
+
+4. Run migrations:
+
+```bash
+npm run prisma:migrate
+```
+
+5. Seed demo data:
+
+```bash
+npm run prisma:seed
+```
+
+6. Start dev server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Demo Accounts (after seed)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `admin@leadflowcrm.dev` / `DemoPass123!`
+- `manager@leadflowcrm.dev` / `DemoPass123!`
+- `emma@leadflowcrm.dev` / `DemoPass123!`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment Variables
 
-## Learn More
+See `.env.example`.
 
-To learn more about Next.js, take a look at the following resources:
+Key variables:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `DATABASE_URL`
+- `NEXTAUTH_SECRET`
+- `NEXTAUTH_URL`
+- `REDIS_URL` / `REDIS_TOKEN` (optional)
+- `RESEND_API_KEY` (optional)
+- `SENTRY_DSN` (optional)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment Notes
 
-## Deploy on Vercel
+Prepared for:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Vercel deployment for Next.js app
+- Managed PostgreSQL
+- Optional Redis for distributed rate limits/queues
+- Environment separation by deployment stage
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Recommended production additions:
+
+- managed secrets and rotation policy
+- background worker for reminders/notification pipelines
+- centralized logging + Sentry/alerting
+- automated backup and restore drills
+
+## Docker Deployment (Server)
+
+This repo now includes a server-ready Docker stack:
+
+- `docker-compose.yml` for app + PostgreSQL
+- `Dockerfile` for building/running the Next.js app
+- `docker/entrypoint.sh` to run `prisma migrate deploy` before app start
+- `.env.docker.example` as deployment env template
+
+### 1. Prepare environment
+
+```bash
+cp .env.docker.example .env.docker
+```
+
+Set at minimum:
+
+- `NEXTAUTH_URL` (your domain, e.g. `https://crm.example.com`)
+- `NEXTAUTH_SECRET` (long random secret)
+- `POSTGRES_PASSWORD` (strong password)
+
+### 2. Build and run
+
+```bash
+docker compose --env-file .env.docker up -d --build
+```
+
+Check status/logs:
+
+```bash
+docker compose --env-file .env.docker ps
+docker compose --env-file .env.docker logs -f app
+```
+
+### 3. Optional seed (first install only)
+
+```bash
+docker compose --env-file .env.docker exec app npm run prisma:seed
+```
+
+### 4. Stop stack
+
+```bash
+docker compose --env-file .env.docker down
+```
+
+To remove DB data volume too:
+
+```bash
+docker compose --env-file .env.docker down -v
+```
+
+Notes:
+
+- App listens on `${APP_PORT}` (default `3000`).
+- PostgreSQL is mapped to `${POSTGRES_PORT}` (default `5433`).
+- If those ports are used, change them in `.env.docker`.
+
+## Future Roadmap
+
+- native drag-and-drop pipeline interactions
+- email inbox sync and outbound sequencing
+- saved filters and customizable views
+- integration layer (webhooks + API tokens)
+- stronger anti-abuse telemetry and anomaly alerts

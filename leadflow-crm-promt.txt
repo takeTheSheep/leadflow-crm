@@ -1,0 +1,1124 @@
+You are a top-tier senior full-stack engineer, SaaS architect, product designer, security-minded backend developer, and premium UI system designer.
+
+Your task is to design and build a highly polished, portfolio-grade, production-minded demo SaaS application called â€œLeadFlow CRMâ€.
+
+Important execution rules:
+
+- Do not rush into coding before planning.
+- Do not reduce this project to a generic template dashboard.
+- Keep the product feeling like a real premium SaaS.
+- Preserve strong separation between UI, business logic, validation, permissions, and data access.
+- Build for future extensibility.
+- Implement the most important features fully rather than all features superficially.
+- Maintain consistency in design system, naming, and architecture.
+- If a requirement is too large to complete at once, still preserve the correct architecture for it.
+- Prefer complete core flows over fake placeholder-heavy implementation.
+
+
+This project must become the strongest of three portfolio projects.
+
+It must look and feel like a real premium B2B software product used by modern sales teams, agencies, service companies, and internal business operators.
+
+This is not a simple dashboard mockup.
+This is not a static admin panel.
+This is not a generic CRM template.
+
+It must be a believable, interactive, full-stack SaaS product demo with strong business logic, elegant visual design, high-quality architecture, thoughtful backend structure, and security-conscious engineering.
+
+==================================================
+PROJECT IDENTITY
+==================================================
+
+Project name:
+LeadFlow CRM
+
+Repository name:
+leadflow-crm
+
+Product type:
+Lead management CRM / pipeline dashboard / sales operations platform
+
+Primary use case:
+A company uses LeadFlow CRM to manage inbound leads, track deal stages, assign owners, add notes, schedule follow-ups, monitor conversion performance, and get operational visibility through dashboards and activity feeds.
+
+Portfolio purpose:
+Demonstrate advanced full-stack capability through:
+- premium UI
+- real backend architecture
+- authentication
+- role-based access
+- dashboards
+- analytics
+- forms
+- filters
+- search
+- tables
+- business workflows
+- scalable code organization
+- security best practices
+- future extensibility
+
+==================================================
+CORE PRODUCT GOAL
+==================================================
+
+The final product should feel like:
+a premium, modern, light-themed B2B SaaS platform.
+
+It should feel expensive, polished, and trustworthy.
+
+Users should immediately feel:
+- this is a real product
+- this has business logic
+- this was architected carefully
+- this can be expanded into a real startup or client product
+
+The UI must be highly interactive but still professional.
+
+==================================================
+MANDATORY TECH STACK
+==================================================
+
+Use the following stack:
+
+Frontend:
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS
+- React Hook Form
+- Zod
+- TanStack Table
+- Zustand or a similarly minimal state layer if needed
+- shadcn/ui only if used carefully and customized heavily, not template-like
+- Recharts or lightweight chart solution
+
+Backend:
+- Next.js server actions and/or route handlers
+- Prisma
+- PostgreSQL
+- Redis for caching / rate limiting / queues if useful
+- NextAuth or Auth.js for authentication
+- Role-based access architecture
+- Server-side validation
+- Audit-friendly service structure
+
+Optional:
+- Resend for email flow abstraction
+- UploadThing or local abstraction layer for future file uploads
+- Background job abstraction placeholder
+- Soft delete pattern
+- Sentry-ready logging hooks placeholder
+
+Do NOT use:
+- Firebase-only shortcuts as the main architecture
+- generic admin template code
+- bloated overengineered dependencies
+- unstructured all-in-pages logic
+- weak demo-only hacks that prevent future scaling
+
+==================================================
+VISUAL STYLE DIRECTION
+==================================================
+
+IMPORTANT:
+Do NOT make this a dark neon tech website.
+
+This product must have a premium light UI.
+
+Style direction:
+- elegant
+- modern
+- spacious
+- business-class
+- editorial SaaS
+- polished
+- rich but restrained
+- premium without being flashy
+- colorful but not childish
+- interactive but not playful
+
+The interface should resemble high-end modern SaaS products:
+- clean white and soft neutral surfaces
+- subtle gradients
+- layered cards
+- soft color transitions
+- refined borders
+- premium typography
+- carefully designed shadows
+- colorful highlights used strategically
+
+==================================================
+COLOR SYSTEM
+==================================================
+
+Use a refined light color palette.
+
+Primary surfaces:
+- background: warm off-white / very light neutral
+- cards: white with soft tinted surfaces
+- secondary surfaces: pale gray / pale blue / pale lavender
+- border: soft neutral with slight transparency
+
+Suggested palette direction:
+- Base background: #F7F8FC
+- White panels: #FFFFFF
+- Soft surface: #F1F4FA
+- Border: #DCE3F0
+- Heading text: #172033
+- Body text: #4E5B73
+- Muted text: #7D89A3
+
+Accent palette:
+- Primary blue: #4F7CFF
+- Deep blue: #315EFB
+- Soft sky: #DCE8FF
+- Teal accent: #3CC7B2
+- Soft teal: #DDF8F3
+- Violet accent: #8B7CFF
+- Soft violet: #EEE9FF
+- Amber accent: #FFB547
+- Soft amber: #FFF3DD
+- Rose accent: #FF6B8A
+- Soft rose: #FFE3EA
+
+Gradients should be elegant:
+- blue â†’ violet
+- sky â†’ teal
+- soft peach â†’ soft rose
+- subtle multi-color blurred backgrounds in hero and dashboard accents
+
+No aggressive neon.
+No pure black backgrounds.
+No overly saturated cyberpunk look.
+
+==================================================
+DESIGN LANGUAGE
+==================================================
+
+Use:
+- large rounded cards
+- layered dashboard panels
+- subtle glass-tinted overlays sparingly
+- smooth hover transitions
+- premium empty states
+- refined status badges
+- beautiful tables
+- visually rich analytics blocks
+- elegant tabs and filter bars
+- soft gradient chart areas
+- polished input controls
+- calm and expensive-feeling shadows
+
+The application should look like a combination of:
+- a premium CRM
+- a startup analytics dashboard
+- a modern productivity platform
+
+==================================================
+INTERACTIVITY GOALS
+==================================================
+
+The product must not feel static.
+
+Add professional, business-appropriate interactive behaviors:
+- dashboard cards with hover lift
+- table row hover states
+- animated counters
+- tab transitions
+- chart tooltips
+- status badge transitions
+- filter chips
+- drag-and-drop or simulated pipeline movement
+- cursor-reactive highlights in select premium areas
+- subtle gradient movement in hero / marketing shell if tasteful
+- contextual side panels
+- interactive activity timeline
+- expandable lead detail drawer
+- keyboard-friendly command/search behavior if possible
+
+Interactivity should feel useful and expensive.
+Do NOT overdo gimmicks.
+
+==================================================
+PRODUCT STRUCTURE
+==================================================
+
+Build this as a real SaaS app with two major layers:
+
+1. Marketing / product shell
+2. Authenticated application area
+
+==================================================
+PUBLIC / MARKETING PAGES
+==================================================
+
+Create these public-facing pages:
+
+1. Landing page
+2. Features page
+3. Pricing page
+4. Security page
+5. Login page
+6. Register / demo access page
+7. Optional privacy page
+8. Optional terms page
+
+The public pages should feel like a premium product website for the CRM.
+
+--------------------------------------------------
+LANDING PAGE SECTIONS
+--------------------------------------------------
+
+Create a premium SaaS landing page with the following sections:
+
+1. Header
+- logo
+- nav links
+- sign in
+- get demo CTA
+
+2. Hero
+- premium headline about organizing and converting leads
+- concise subheadline
+- CTA buttons
+- right-side dashboard mockup or layered product preview
+- subtle gradient background
+- mild cursor-reactive visual glow in hero background only
+- floating analytics chips or lead cards
+
+3. Trusted by teams / usage proof
+- realistic generic trust signals, not fake famous brands
+- examples: teams, response speed, conversion gain, lead visibility
+
+4. Product highlights
+- lead tracking
+- pipeline management
+- activity history
+- follow-up scheduling
+- analytics visibility
+- team collaboration
+
+5. Interactive product preview
+- mini CRM preview
+- tabs for Dashboard / Leads / Analytics / Activity
+- switching tabs updates preview panel
+
+6. Workflow section
+- capture
+- qualify
+- assign
+- nurture
+- convert
+
+7. Security / reliability strip
+- encrypted sessions
+- role-based permissions
+- audit visibility
+- secure data handling
+
+8. Testimonial-style quotes
+- believable but generic roles
+
+9. Final CTA
+- start demo / explore platform
+
+==================================================
+AUTHENTICATED APPLICATION AREA
+==================================================
+
+Create a complete authenticated SaaS area.
+
+Main app sections:
+- Dashboard
+- Leads
+- Pipeline
+- Analytics
+- Activities
+- Team
+- Settings
+
+Optional:
+- Notifications
+- Tasks
+- Integrations
+
+==================================================
+AUTH + USER SYSTEM
+==================================================
+
+Implement authentication with production-minded architecture.
+
+Requirements:
+- secure login
+- registration for demo users
+- protected routes
+- session handling
+- logout
+- password hashing if custom auth flow is used
+- CSRF-aware implementation depending on auth solution
+- server-side auth checks
+- role-based permissions
+
+Roles:
+- Admin
+- Manager
+- Sales Rep
+
+Role permissions example:
+Admin:
+- manage all leads
+- manage users
+- manage settings
+- view analytics
+- export data
+
+Manager:
+- manage assigned team leads
+- view analytics
+- update pipeline
+- view activities
+
+Sales Rep:
+- manage own leads
+- update status
+- add notes
+- schedule follow-ups
+
+==================================================
+MAIN DASHBOARD PAGE
+==================================================
+
+The dashboard must feel rich and interactive.
+
+Include:
+
+1. KPI cards
+- Total Leads
+- Qualified Leads
+- Conversion Rate
+- Revenue Potential
+- Follow-ups Due
+- Active Deals
+
+Each card should have:
+- metric
+- trend indicator
+- comparison note
+- icon/accent
+- hover interaction
+
+2. Chart area
+Include:
+- lead volume over time
+- conversion by source
+- pipeline stage distribution
+- follow-up completion rate
+
+3. Recent activities panel
+Examples:
+- John Carter moved to Qualified
+- Follow-up scheduled for Acme Studio
+- Proposal sent to Northline
+- Lead reassigned to Emma
+
+4. Upcoming tasks / follow-ups
+- list of due actions
+- priority levels
+- due dates
+- quick action buttons
+
+5. Lead source summary
+- Organic
+- Referral
+- Paid Ads
+- Outreach
+- Partner
+
+6. Team performance mini cards
+- conversion rate by rep
+- active leads count
+- response time
+
+==================================================
+LEADS PAGE
+==================================================
+
+This page is critical.
+
+Build a premium leads data table.
+
+Features:
+- searchable
+- filterable
+- sortable
+- paginated
+- row selection
+- bulk actions
+- status badges
+- owner avatars or initials
+- source labels
+- company name
+- contact info
+- lead score
+- estimated deal value
+- next follow-up date
+
+Filters:
+- status
+- owner
+- source
+- lead score range
+- date created
+- priority
+- tags
+
+Bulk actions:
+- assign owner
+- change status
+- add tag
+- archive
+- delete (admin only)
+
+Clicking a lead should open:
+- detail page or detail drawer
+
+==================================================
+LEAD DETAIL EXPERIENCE
+==================================================
+
+This must feel like a real product.
+
+Include:
+
+Lead profile
+- full name
+- company
+- email
+- phone
+- source
+- owner
+- current stage
+- lead score
+- estimated value
+- probability to close
+- tags
+
+Tabs inside lead detail:
+- Overview
+- Notes
+- Activity
+- Emails
+- Tasks
+- Files (placeholder ready if no uploads yet)
+
+Overview:
+- summary card
+- contact details
+- lead history
+- quick actions
+
+Notes:
+- add note
+- edit note
+- timeline of notes
+
+Activity:
+- status changes
+- assignments
+- follow-up logs
+- audit events
+
+Tasks:
+- schedule follow-up
+- mark complete
+- set due date
+- assign user
+
+Files:
+- architecture placeholder for future uploads
+
+Quick actions:
+- move stage
+- assign owner
+- add note
+- create task
+- mark contacted
+- archive lead
+
+==================================================
+PIPELINE PAGE
+==================================================
+
+Create a visual Kanban-style sales pipeline.
+
+Stages:
+- New
+- Contacted
+- Qualified
+- Proposal Sent
+- Negotiation
+- Won
+- Lost
+
+Requirements:
+- drag-and-drop if possible
+- if not, simulate movement with action menus
+- stage counts
+- stage value totals
+- lead cards inside each column
+- owner
+- company
+- deal size
+- lead score
+- urgency indicator
+
+This page must feel dynamic and product-like.
+
+==================================================
+ANALYTICS PAGE
+==================================================
+
+The analytics page should feel premium and useful.
+
+Include:
+- leads created over time
+- conversion funnel
+- source performance
+- owner performance
+- lost reasons breakdown
+- follow-up completion
+- stage velocity
+- estimated revenue forecast
+
+Use polished charts:
+- line chart
+- bar chart
+- donut / pie chart
+- funnel visualization
+- stacked bar if useful
+
+Allow:
+- date range filter
+- owner filter
+- source filter
+
+==================================================
+ACTIVITY PAGE
+==================================================
+
+Create a feed-style page showing chronological system activity.
+
+Examples:
+- lead created
+- stage changed
+- owner assigned
+- note added
+- task completed
+- status updated
+
+Allow filtering by:
+- user
+- action type
+- date
+
+This page should reinforce that the app has real business operations.
+
+==================================================
+TEAM PAGE
+==================================================
+
+Show team members and performance.
+
+Include:
+- user cards
+- role badges
+- active leads count
+- conversion rate
+- response speed
+- recent activity snippet
+
+Optional:
+- ability to reassign leads
+- team leaderboard style card
+
+==================================================
+SETTINGS PAGE
+==================================================
+
+Build a realistic settings area with tabs.
+
+Tabs:
+- Profile
+- Workspace
+- Notifications
+- Security
+- Team Permissions
+- Integrations (placeholder)
+
+Profile:
+- name
+- email
+- password change flow placeholder or implementation
+- avatar placeholder
+
+Workspace:
+- company name
+- default sales stages
+- lead statuses
+- timezone
+- currency
+
+Notifications:
+- email notifications
+- reminder preferences
+- digest options
+
+Security:
+- session visibility
+- password rules
+- 2FA placeholder
+- login event history placeholder
+- suspicious activity messaging
+
+Team Permissions:
+- role descriptions
+- role assignment architecture
+
+Integrations:
+- CRM/API/webhook placeholders
+
+==================================================
+BACKEND DOMAIN FEATURES
+==================================================
+
+Build real backend logic with clear service boundaries.
+
+Entities:
+- User
+- Workspace
+- Lead
+- LeadNote
+- LeadActivity
+- Task
+- Tag
+- LeadSource
+- PipelineStage
+- Notification
+- Session / Auth entity as needed
+
+Lead operations:
+- create lead
+- update lead
+- change stage
+- assign owner
+- archive lead
+- soft delete lead
+- search leads
+- filter leads
+- score leads
+- schedule follow-up
+- add notes
+- record activities
+
+Business logic:
+- automatic activity log on every important action
+- follow-up overdue calculation
+- lead score calculation
+- conversion metrics aggregation
+- role-based access control on actions
+- workspace data scoping
+- optimistic UI only where safe
+
+==================================================
+SECURITY REQUIREMENTS
+==================================================
+
+This section is extremely important.
+
+Implement the application with production-aware security patterns.
+
+Requirements:
+- server-side validation for all mutations
+- Zod validation schemas
+- authentication checks on protected routes and actions
+- role-based authorization
+- workspace-level data isolation
+- no trust in client-submitted role or ownership data
+- sanitize text inputs
+- safe error handling
+- no sensitive details leaked in errors
+- parameterized queries via Prisma
+- safe session handling
+- secure password storage if applicable
+- CSRF-aware strategy
+- rate limiting architecture for auth and critical endpoints
+- request throttling for login and lead creation
+- audit logging for critical actions
+- soft delete where useful
+- secure env handling
+- no secrets exposed to client
+- secure headers awareness
+- XSS-safe rendering patterns
+- no dangerous HTML rendering
+- validation against mass assignment issues
+- minimal data exposure in APIs
+- pagination safeguards
+- file upload security placeholder if file system added later
+
+Also document future security recommendations:
+- 2FA
+- IP/device anomaly detection
+- email verification
+- bot protection
+- stronger audit exports
+- encrypted sensitive fields if needed
+- webhook signature verification
+- background monitoring
+- Sentry / alerting integration
+- backup strategy
+
+==================================================
+ANTI-ABUSE / HARDENING
+==================================================
+
+Add architecture and documentation for:
+- login rate limiting
+- brute-force mitigation
+- suspicious login messaging
+- honeypot strategy for public forms if any
+- server-side request validation
+- API response shaping
+- activity anomaly logging placeholder
+- abuse-aware mutation wrappers
+- pagination limits
+- query limits
+- protection against duplicate submissions
+- idempotent mutation thinking where needed
+
+==================================================
+INTERACTIVE MECHANICS
+==================================================
+
+Add premium interactive mechanics, but keep them professional.
+
+Examples:
+- hover-responsive dashboard cards
+- animated number counters
+- filter chips with active states
+- row hover reveal actions
+- slide-over lead detail panel
+- interactive tabs
+- chart hover tooltips
+- drag-and-drop pipeline cards
+- subtle cursor-follow gradient in hero or landing product showcase only
+- soft parallax on decorative gradient shapes in landing hero
+- interactive KPI trend switching with date presets
+- command-bar style quick search shortcut if possible
+- quick-create lead modal
+- inline editable fields in lead detail where appropriate
+- collapsible sidebar with polished transitions
+
+Do not make it playful or gimmicky.
+Everything must feel like premium business software.
+
+==================================================
+PREMIUM UI COMPONENTS
+==================================================
+
+Build reusable components such as:
+- AppShell
+- Sidebar
+- Topbar
+- CommandSearch
+- KPIStatCard
+- TrendBadge
+- DataTable
+- FilterBar
+- LeadStageBadge
+- OwnerAvatar
+- ActivityFeed
+- ChartCard
+- TaskCard
+- TeamMemberCard
+- SettingsTabs
+- SlideOverPanel
+- LeadFormModal
+- EmptyState
+- ConfirmDialog
+- StatusPill
+- MetricCard
+- SectionHeader
+- PageHeader
+- DateRangePicker placeholder or implementation
+- PipelineColumn
+- LeadKanbanCard
+
+==================================================
+CSS / STYLE EXECUTION DETAILS
+==================================================
+
+Use Tailwind, but the final UI must feel custom and premium.
+
+Requirements:
+- rounded-xl to rounded-2xl card language
+- generous whitespace
+- balanced shadows
+- consistent border opacity
+- elegant gradient accents
+- rich hover states
+- premium table styling
+- custom badge system
+- custom chart containers
+- beautiful form controls
+- subtle background blobs or gradients in selected areas
+- light dashboard shell with tinted surfaces
+
+Avoid:
+- default Tailwind look
+- cheap admin theme feel
+- overly flat sterile UI
+- too many colors at once
+- gaudy gradient abuse
+
+Use color accents with discipline.
+
+==================================================
+RESPONSIVE DESIGN
+==================================================
+
+Must be fully responsive.
+
+Desktop:
+- premium dashboard layout
+- multi-column analytics
+- side navigation
+- wide tables
+
+Tablet:
+- adaptive layout
+- stacked chart cards
+- usable pipeline
+
+Mobile:
+- usable dashboard cards
+- responsive lead list
+- simplified pipeline
+- slide-over panels
+- mobile-friendly filters
+- comfortable touch targets
+- app-like feel
+
+==================================================
+ACCESSIBILITY
+==================================================
+
+Requirements:
+- semantic structure
+- keyboard accessibility
+- visible focus states
+- sufficient color contrast
+- accessible tables
+- accessible dialogs
+- aria labels where needed
+- reduced motion consideration
+
+==================================================
+PROJECT FILE / FOLDER STRUCTURE
+==================================================
+
+Use a scalable real-world structure.
+
+/
+  public/
+    images/
+    icons/
+    og/
+  prisma/
+    schema.prisma
+    seed.ts
+  src/
+    app/
+      (marketing)/
+        page.tsx
+        features/page.tsx
+        pricing/page.tsx
+        security/page.tsx
+      (auth)/
+        login/page.tsx
+        register/page.tsx
+      (dashboard)/
+        layout.tsx
+        dashboard/page.tsx
+        leads/page.tsx
+        leads/[id]/page.tsx
+        pipeline/page.tsx
+        analytics/page.tsx
+        activity/page.tsx
+        team/page.tsx
+        settings/page.tsx
+      api/
+        ...
+    components/
+      marketing/
+      dashboard/
+      tables/
+      charts/
+      forms/
+      modals/
+      layout/
+      common/
+    lib/
+      auth/
+      db/
+      permissions/
+      validation/
+      services/
+        leads/
+        analytics/
+        activity/
+        tasks/
+        users/
+      repositories/
+      rate-limit/
+      security/
+      utils/
+    server/
+      actions/
+      queries/
+      mutations/
+    hooks/
+    store/
+    types/
+    constants/
+    data/
+    styles/
+    emails/
+    config/
+  middleware.ts
+  package.json
+  tsconfig.json
+  README.md
+  .env.example
+
+Architecture principles:
+- separate business logic from UI
+- separate validation from actions
+- separate permissions from data access
+- separate queries from mutations
+- keep services modular
+- make future scaling straightforward
+
+==================================================
+DATABASE MODELING EXPECTATIONS
+==================================================
+
+Design a thoughtful Prisma schema.
+
+Core models:
+- User
+- Workspace
+- Membership
+- Lead
+- LeadNote
+- LeadActivity
+- Task
+- Tag
+- LeadTag
+- PipelineStage
+- Notification
+- Session / Account / Verification entities if needed
+- Optional SavedFilter model
+
+Important schema considerations:
+- timestamps everywhere
+- createdBy / updatedBy where useful
+- workspaceId scoping
+- soft deletion fields where appropriate
+- indexes for search/filter performance
+- enums for statuses and roles
+- relation clarity
+- future extensibility
+
+==================================================
+SEED DATA
+==================================================
+
+Provide high-quality seed data.
+
+Include:
+- multiple team members
+- realistic leads
+- multiple lead sources
+- different pipeline stages
+- notes
+- tasks
+- activities
+- performance data for charts
+
+The seed data should make the app feel alive immediately.
+
+==================================================
+README REQUIREMENTS
+==================================================
+
+Generate a professional README with:
+- project overview
+- product concept
+- tech stack
+- feature list
+- architecture summary
+- folder structure overview
+- auth and security notes
+- database summary
+- local setup
+- environment variables
+- seed instructions
+- future roadmap
+- deployment notes
+
+==================================================
+DEPLOYMENT / PRODUCTION AWARENESS
+==================================================
+
+Prepare the project so it can later be deployed cleanly.
+
+Include awareness for:
+- Vercel deployment
+- managed PostgreSQL
+- Redis provider
+- environment separation
+- secure secrets handling
+- migration flow
+- observability hooks
+- logging
+- error monitoring placeholders
+
+==================================================
+FINAL UX GOAL
+==================================================
+
+When a visitor opens this project, they should think:
+
+â€œThis looks like a real premium CRM product.â€
+
+When a developer or client explores it, they should see:
+- excellent frontend execution
+- real backend thinking
+- good business logic
+- strong architecture
+- security awareness
+- real product polish
+
+This must be the strongest, most impressive, most complete project of the three.
+
+Always optimize for:
+- professionalism
+- credibility
+- modularity
+- premium UX
+- realistic business logic
+- future extensibility
+- production-minded engineering
+
+
+
