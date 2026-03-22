@@ -208,6 +208,7 @@ export function DataTable({ rows, currentPage, totalPages, totalCount, role }: D
   });
 
   const selectedIds = Object.keys(rowSelection);
+  const visibleRows = table.getRowModel().rows;
 
   const runBulkAction = async () => {
     if (!bulkAction || selectedIds.length === 0) {
@@ -424,7 +425,115 @@ export function DataTable({ rows, currentPage, totalPages, totalCount, role }: D
         </div>
       ) : null}
 
-      <div className="overflow-x-auto premium-scrollbar">
+      <div className="space-y-3 p-4 md:hidden">
+        {visibleRows.length === 0 ? (
+          <div className="rounded-xl border border-dashed border-[var(--border)] bg-[var(--background-soft)]/75 px-4 py-10 text-center">
+            <p className="text-sm font-medium text-heading">No leads match the current filters</p>
+            <p className="mt-1 text-xs text-muted">Try clearing filters or adjusting your search criteria.</p>
+          </div>
+        ) : (
+          visibleRows.map((row) => {
+            const lead = row.original;
+
+            return (
+              <article
+                key={row.id}
+                className="rounded-xl border border-[var(--border)] bg-white p-4 shadow-[0_12px_28px_-24px_rgba(24,40,80,0.45)]"
+              >
+                <div className="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    aria-label={`Select ${lead.fullName}`}
+                    checked={!!rowSelection[lead.id]}
+                    onChange={(event) => {
+                      const next = { ...rowSelection };
+                      if (event.target.checked) {
+                        next[lead.id] = true;
+                      } else {
+                        delete next[lead.id];
+                      }
+                      setRowSelection(next);
+                    }}
+                    className="mt-1 h-4 w-4 rounded border-[var(--border)]"
+                  />
+
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-semibold text-heading">{lead.fullName}</p>
+                        <p className="truncate text-xs text-muted">{lead.company}</p>
+                      </div>
+                      <Link
+                        href={`/leads/${lead.id}`}
+                        className="ring-focus inline-flex shrink-0 items-center gap-1 rounded-lg border border-[var(--border)] px-2.5 py-1.5 text-xs font-medium text-heading transition hover:border-[var(--blue)]/25 hover:bg-[var(--blue-soft)] hover:text-[var(--blue-deep)]"
+                      >
+                        <Eye className="h-3.5 w-3.5" aria-hidden />
+                        View
+                      </Link>
+                    </div>
+
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      <StatusPill stage={lead.stage} />
+                      <StatusPill priority={lead.priority} />
+                      {lead.source ? (
+                        <span className="inline-flex rounded-full bg-[var(--background-soft)] px-2.5 py-1 text-[11px] font-medium text-muted">
+                          {lead.source}
+                        </span>
+                      ) : null}
+                    </div>
+
+                    <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
+                      <div className="rounded-xl bg-[var(--background-soft)]/72 p-3">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-muted">Score</p>
+                        <p className="mt-1 text-base font-semibold text-heading">{lead.leadScore}</p>
+                      </div>
+                      <div className="rounded-xl bg-[var(--background-soft)]/72 p-3">
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-muted">Value</p>
+                        <p className="mt-1 text-base font-semibold text-heading">${formatInteger(lead.estimatedValue)}</p>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 flex items-center justify-between gap-3">
+                      <div className="flex min-w-0 items-center gap-2">
+                        <OwnerAvatar name={lead.ownerName} image={lead.ownerImage} className="h-8 w-8" />
+                        <div className="min-w-0">
+                          <p className="truncate text-xs font-medium text-heading">{lead.ownerName}</p>
+                          <p className="truncate text-[11px] text-muted">
+                            {lead.nextFollowUpAt
+                              ? `Follow-up ${formatDistanceToNowStrict(new Date(lead.nextFollowUpAt), { addSuffix: true })}`
+                              : "Follow-up not scheduled"}
+                          </p>
+                        </div>
+                      </div>
+                      <p className="shrink-0 text-[11px] text-muted">{lead.email}</p>
+                    </div>
+
+                    {lead.tags.length > 0 ? (
+                      <div className="mt-3 flex flex-wrap gap-1.5">
+                        {lead.tags.slice(0, 3).map((tag) => (
+                          <span
+                            key={tag.id}
+                            className="rounded-full bg-[var(--violet-soft)] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-[var(--violet)]"
+                          >
+                            {tag.name}
+                          </span>
+                        ))}
+                        {lead.tags.length > 3 ? (
+                          <span className="rounded-full bg-[var(--background-soft)] px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-muted">
+                            +{lead.tags.length - 3}
+                          </span>
+                        ) : null}
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+              </article>
+            );
+          })
+        )}
+      </div>
+
+      <div className="hidden overflow-x-auto premium-scrollbar md:block">
         <table className="min-w-full divide-y divide-[var(--border)]">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -460,9 +569,9 @@ export function DataTable({ rows, currentPage, totalPages, totalCount, role }: D
         </table>
       </div>
 
-      <div className="flex items-center justify-between border-t border-[var(--border)] p-4 text-sm">
+      <div className="flex flex-col gap-3 border-t border-[var(--border)] p-4 text-sm sm:flex-row sm:items-center sm:justify-between">
         <p className="text-muted">Page {currentPage} of {totalPages}</p>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <label className="flex items-center gap-2 text-xs text-muted">
             Page size
             <select

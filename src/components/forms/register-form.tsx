@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { Eye, EyeOff } from "lucide-react";
 import { registerAction } from "@/server/actions/auth-actions";
 import { Button } from "@/components/common/button";
 import { registerSchema } from "@/lib/validation/auth-schemas";
@@ -20,6 +21,8 @@ export function RegisterForm() {
   const [isPending, startTransition] = useTransition();
   const [resultMessage, setResultMessage] = useState<string | null>(null);
   const [resultType, setResultType] = useState<"success" | "error" | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const form = useForm<Values>({
     resolver: zodResolver(schema),
@@ -62,10 +65,10 @@ export function RegisterForm() {
   });
 
   return (
-    <form onSubmit={onSubmit} className="surface-card relative w-full max-w-lg space-y-4 p-6">
+    <form onSubmit={onSubmit} className="relative w-full max-w-lg space-y-5">
       <div>
-        <h1 className="text-2xl font-semibold text-heading">Create demo workspace</h1>
-        <p className="mt-1 text-sm text-muted">Set up your team environment in under two minutes.</p>
+        <h1 className="text-3xl font-bold tracking-tight text-heading">Create your workspace</h1>
+        <p className="mt-2 text-sm text-muted">Set up your team environment, invite reps, and start tracking deals in one place.</p>
       </div>
 
       <div className="grid gap-3 md:grid-cols-2">
@@ -102,11 +105,21 @@ export function RegisterForm() {
       <div className="grid gap-3 md:grid-cols-2">
         <label className="space-y-1 text-sm">
           <span className="text-muted">Password</span>
-          <input
-            type="password"
-            {...form.register("password")}
-            className="field-base"
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              {...form.register("password")}
+              className="field-base pr-11"
+            />
+            <button
+              type="button"
+              className="absolute right-3 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-muted transition hover:text-heading"
+              onClick={() => setShowPassword((current) => !current)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? <EyeOff className="h-4 w-4" aria-hidden /> : <Eye className="h-4 w-4" aria-hidden />}
+            </button>
+          </div>
           {errors.password ? (
             <p className="text-xs text-rose-600">{errors.password.message}</p>
           ) : (
@@ -116,17 +129,33 @@ export function RegisterForm() {
 
         <label className="space-y-1 text-sm">
           <span className="text-muted">Confirm password</span>
-          <input
-            type="password"
-            {...form.register("confirmPassword")}
-            className="field-base"
-          />
+          <div className="relative">
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              {...form.register("confirmPassword")}
+              className="field-base pr-11"
+            />
+            <button
+              type="button"
+              className="absolute right-3 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-muted transition hover:text-heading"
+              onClick={() => setShowConfirmPassword((current) => !current)}
+              aria-label={showConfirmPassword ? "Hide confirm password" : "Show confirm password"}
+            >
+              {showConfirmPassword ? (
+                <EyeOff className="h-4 w-4" aria-hidden />
+              ) : (
+                <Eye className="h-4 w-4" aria-hidden />
+              )}
+            </button>
+          </div>
           {errors.confirmPassword ? <p className="text-xs text-rose-600">{errors.confirmPassword.message}</p> : null}
         </label>
       </div>
 
       {resultMessage ? (
-        <p className={`text-sm ${resultType === "error" ? "text-rose-600" : "text-emerald-600"}`}>{resultMessage}</p>
+        <p className={`rounded-xl px-4 py-3 text-sm ${resultType === "error" ? "bg-rose-50 text-rose-700" : "bg-emerald-50 text-emerald-700"}`}>
+          {resultMessage}
+        </p>
       ) : null}
       {errors.website ? <p className="text-sm text-rose-600">Unable to submit. Please try again.</p> : null}
 
@@ -135,7 +164,10 @@ export function RegisterForm() {
       </Button>
 
       <p className="text-sm text-muted">
-        Already have access? <Link href="/login" className="font-medium text-[var(--blue-deep)] hover:underline">Sign in</Link>
+        Already have access?{" "}
+        <Link href="/login" className="font-medium text-[var(--blue-deep)] hover:underline">
+          Sign in
+        </Link>
       </p>
     </form>
   );

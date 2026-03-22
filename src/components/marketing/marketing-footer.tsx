@@ -1,58 +1,72 @@
 import Link from "next/link";
-import { cn } from "@/lib/utils/cn";
+
+const footerColumns = [
+  {
+    heading: "Product",
+    links: [
+      { href: "/#features", label: "Features" },
+      { href: "/#pricing", label: "Pricing" },
+      { href: "/security", label: "Security" },
+    ],
+  },
+  {
+    heading: "Company",
+    links: [
+      { href: "/", label: "About" },
+      { href: "/", label: "Blog" },
+      { href: "/", label: "Contact" },
+    ],
+  },
+  {
+    heading: "Legal",
+    links: [
+      { href: "/privacy", label: "Privacy" },
+      { href: "/terms", label: "Terms" },
+    ],
+  },
+];
 
 type MarketingFooterProps = {
   mobileTheme?: "light" | "dark";
 };
 
-export function MarketingFooter({ mobileTheme = "light" }: MarketingFooterProps) {
-  const isDarkMobile = mobileTheme === "dark";
-
+export function MarketingFooter({ mobileTheme }: MarketingFooterProps) {
   return (
-    <footer
-      className={cn(
-        "border-t py-8",
-        isDarkMobile ? "border-white/10 bg-[#050b14] pb-28 md:border-white/70 md:bg-transparent md:py-8" : "border-white/70",
-      )}
-    >
-      <div
-        className={cn(
-          "mx-auto flex w-full max-w-7xl flex-col gap-4 px-4 text-sm md:flex-row md:flex-wrap md:items-center md:justify-between md:px-6",
-          isDarkMobile ? "text-slate-400 md:text-muted" : "text-muted",
-        )}
-      >
-        <p>(c) {new Date().getFullYear()} LeadFlow CRM</p>
-        <nav className="flex flex-wrap items-center gap-3 md:gap-4">
-          <Link
-            href="/security"
-            className={cn(
-              "inline-flex min-h-12 items-center rounded-xl pr-3 transition",
-              isDarkMobile ? "hover:text-white md:hover:text-heading" : "hover:text-heading",
-            )}
-          >
-            Security
-          </Link>
-          <Link
-            href="/privacy"
-            className={cn(
-              "inline-flex min-h-12 items-center rounded-xl pr-3 transition",
-              isDarkMobile ? "hover:text-white md:hover:text-heading" : "hover:text-heading",
-            )}
-          >
-            Privacy
-          </Link>
-          <Link
-            href="/terms"
-            className={cn(
-              "inline-flex min-h-12 items-center rounded-xl pr-3 transition",
-              isDarkMobile ? "hover:text-white md:hover:text-heading" : "hover:text-heading",
-            )}
-          >
-            Terms
-          </Link>
-        </nav>
+    <footer className={mobileTheme ? "border-t border-[var(--border)] py-12" : "border-t border-[var(--border)] py-12"}>
+      <div className="mx-auto w-full max-w-6xl px-4 md:px-6">
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+          <div className="col-span-2 md:col-span-1">
+            <Link href="/" className="mb-4 flex items-center gap-2">
+              <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg hero-gradient text-xs font-bold text-white">
+                LF
+              </span>
+              <span className="font-bold text-heading">LeadFlow CRM</span>
+            </Link>
+            <p className="text-sm leading-relaxed text-muted">
+              The modern CRM for teams that want to close more deals faster.
+            </p>
+          </div>
+
+          {footerColumns.map((column) => (
+            <div key={column.heading}>
+              <h4 className="mb-3 text-sm font-semibold text-heading">{column.heading}</h4>
+              <ul className="space-y-2">
+                {column.links.map((link) => (
+                  <li key={link.label}>
+                    <Link href={link.href} className="text-sm text-muted transition hover:text-heading">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-10 border-t border-[var(--border)] pt-6 text-center text-xs text-muted">
+          (c) 2026 LeadFlow CRM. All rights reserved.
+        </div>
       </div>
     </footer>
   );
 }
-
