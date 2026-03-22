@@ -74,7 +74,7 @@ export function MarketingHeader({ mobileTheme }: MarketingHeaderProps) {
       </div>
 
       {open ? (
-        <div className="border-t border-[var(--border)] bg-white md:hidden">
+        <div className="animate-reveal border-t border-[var(--border)] bg-white md:hidden">
           <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-4 py-4">
             {navLinks.map((link) => (
               <Link key={link.href} href={link.href} className="text-sm text-muted" onClick={() => setOpen(false)}>

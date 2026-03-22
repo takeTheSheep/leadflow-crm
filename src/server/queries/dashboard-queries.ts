@@ -9,7 +9,7 @@ export async function getDashboardData(filters?: { rangeDays?: number }) {
   const rangeDays = filters?.rangeDays ?? 7;
   const dashboardFilters = { rangeDays };
 
-  const [metrics, leadVolume, conversionBySource, pipelineDistribution, forecast, followUp, recentActivities, upcomingTasks, ownerPerformance] =
+  const [metrics, leadVolume, conversionBySource, pipelineDistribution, forecast, followUp, recentActivities, upcomingTasks, ownerPerformance, stageVelocity] =
     await Promise.all([
       analyticsService.getDashboardMetrics(workspaceId, dashboardFilters),
       analyticsService.getLeadVolumeSeries(workspaceId, dashboardFilters),
@@ -25,6 +25,7 @@ export async function getDashboardData(filters?: { rangeDays?: number }) {
       }),
       taskService.listUpcoming(workspaceId, session.user.id, session.user.role),
       analyticsService.getOwnerPerformance(workspaceId, dashboardFilters),
+      analyticsService.getStageVelocity(workspaceId, dashboardFilters),
     ]);
 
   const teamPerformance = ownerPerformance.map((member) => ({
@@ -46,6 +47,7 @@ export async function getDashboardData(filters?: { rangeDays?: number }) {
     recentActivities,
     upcomingTasks,
     teamPerformance,
+    stageVelocity,
   };
 }
 

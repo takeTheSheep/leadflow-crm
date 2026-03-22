@@ -35,6 +35,12 @@ body {
   overflow-x: hidden;
 }
 
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
   background:
     radial-gradient(circle at 10% 0%, rgba(42, 141, 124, 0.08), transparent 32%),
@@ -185,6 +191,22 @@ button:disabled,
     border: 2px solid transparent;
     background-clip: content-box;
   }
+
+  .animate-reveal {
+    animation: reveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .animate-reveal-delayed {
+    animation: reveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+  }
+
+  .animate-reveal-delayed-2 {
+    animation: reveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
 }
 
 @keyframes shimmer {
@@ -197,6 +219,20 @@ button:disabled,
   }
 }
 
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -206,6 +242,20 @@ button:disabled,
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
   }
 }
 

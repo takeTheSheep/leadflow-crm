@@ -13,7 +13,9 @@ const protectedPrefixes = [
   "/settings",
 ];
 
-function setSecurityHeaders(response: NextResponse) {
+function setSecurityHeaders(response: NextResponse, request: NextRequest) {
+  const isLocalPreview = request.nextUrl.hostname === "localhost" || request.nextUrl.hostname === "127.0.0.1";
+
   response.headers.set("X-Frame-Options", "DENY");
   response.headers.set("X-Content-Type-Options", "nosniff");
   response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
@@ -25,7 +27,7 @@ function setSecurityHeaders(response: NextResponse) {
       "Content-Security-Policy",
       [
         "default-src 'self'",
-        "script-src 'self' 'unsafe-inline'",
+        `script-src 'self' 'unsafe-inline'${isLocalPreview ? " 'unsafe-eval'" : ""}`,
         "style-src 'self' 'unsafe-inline'",
         "img-src 'self' data: https:",
         "connect-src 'self'",
@@ -54,14 +56,14 @@ export async function middleware(request: NextRequest) {
   if (isProtected && !token) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("redirectTo", pathname);
-    return setSecurityHeaders(NextResponse.redirect(loginUrl));
+    return setSecurityHeaders(NextResponse.redirect(loginUrl), request);
   }
 
   if (isAuthRoute && token) {
-    return setSecurityHeaders(NextResponse.redirect(new URL("/dashboard", request.url)));
+    return setSecurityHeaders(NextResponse.redirect(new URL("/dashboard", request.url)), request);
   }
 
-  return setSecurityHeaders(NextResponse.next());
+  return setSecurityHeaders(NextResponse.next(), request);
 }
 
 export const config = {

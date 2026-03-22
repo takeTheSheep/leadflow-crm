@@ -7,7 +7,7 @@ export default function RegisterPage() {
     <main className="min-h-screen bg-[var(--background)]">
       <div className="grid min-h-screen lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)]">
         <section className="flex items-center justify-center px-4 py-10 sm:px-8 lg:px-12">
-          <div className="w-full max-w-lg">
+          <div className="animate-reveal w-full max-w-lg">
             <Link href="/" className="mb-10 inline-flex items-center gap-2">
               <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg hero-gradient text-sm font-bold text-white">
                 LF
@@ -33,7 +33,7 @@ export default function RegisterPage() {
             }}
           />
 
-          <div className="relative z-10 max-w-md text-white">
+          <div className="animate-reveal relative z-10 max-w-md text-white">
             <h2 className="text-3xl font-bold leading-tight">Launch a cleaner pipeline for your revenue team</h2>
             <p className="mt-4 text-lg leading-relaxed text-white/72">
               Spin up your workspace, invite reps, and move from scattered leads to a structured deal flow in minutes.

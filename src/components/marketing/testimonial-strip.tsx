@@ -1,3 +1,7 @@
+"use client";
+
+import { ScrollReveal } from "@/components/common/scroll-reveal";
+
 const testimonials = [
   {
     name: "Sarah Chen",
@@ -23,24 +27,26 @@ export function TestimonialStrip() {
   return (
     <section id="testimonials" className="py-20 md:py-28">
       <div className="mx-auto w-full max-w-6xl px-4 md:px-6">
-        <div className="mb-14 text-center">
+        <ScrollReveal className="mb-14 text-center">
           <h2 className="text-3xl font-bold tracking-tight text-heading md:text-4xl">Trusted by high-performing teams</h2>
-        </div>
+        </ScrollReveal>
 
         <div className="grid gap-4 md:grid-cols-3 md:gap-6">
-          {testimonials.map((testimonial) => (
-            <blockquote key={testimonial.name} className="surface-card flex h-full flex-col p-6 md:p-8">
-              <p className="mb-6 flex-1 text-sm leading-relaxed text-body">&quot;{testimonial.quote}&quot;</p>
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--blue)]/10 text-sm font-semibold text-[var(--blue)]">
-                  {testimonial.initials}
+          {testimonials.map((testimonial, index) => (
+            <ScrollReveal key={testimonial.name} delay={index * 100}>
+              <blockquote className="surface-card flex h-full flex-col p-6 md:p-8">
+                <p className="mb-6 flex-1 text-sm leading-relaxed text-body">&quot;{testimonial.quote}&quot;</p>
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--blue)]/10 text-sm font-semibold text-[var(--blue)]">
+                    {testimonial.initials}
+                  </div>
+                  <div>
+                    <div className="text-sm font-semibold text-heading">{testimonial.name}</div>
+                    <div className="text-xs text-muted">{testimonial.role}</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="text-sm font-semibold text-heading">{testimonial.name}</div>
-                  <div className="text-xs text-muted">{testimonial.role}</div>
-                </div>
-              </div>
-            </blockquote>
+              </blockquote>
+            </ScrollReveal>
           ))}
         </div>
       </div>

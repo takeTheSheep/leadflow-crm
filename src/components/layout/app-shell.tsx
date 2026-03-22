@@ -17,7 +17,7 @@ export function AppShell({ children, user }: AppShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-transparent lg:flex">
+    <div className="flex min-h-screen bg-[var(--background)]">
       <Sidebar
         userName={user.name}
         workspaceName={user.workspaceName}
@@ -32,8 +32,8 @@ export function AppShell({ children, user }: AppShellProps) {
           workspaceName={user.workspaceName}
           onOpenSidebar={() => setSidebarOpen(true)}
         />
-        <main className="min-w-0 flex-1 overflow-x-hidden px-4 pb-8 pt-4 md:px-6 xl:px-8">
-          <div className="mx-auto w-full min-w-0 max-w-[1400px]">
+        <main className="min-w-0 flex-1 overflow-x-hidden p-4 lg:p-6">
+          <div className="w-full min-w-0">
             {children}
           </div>
         </main>

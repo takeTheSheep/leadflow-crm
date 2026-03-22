@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { ScrollReveal } from "@/components/common/scroll-reveal";
 
 const footerColumns = [
   {
@@ -33,7 +36,7 @@ type MarketingFooterProps = {
 export function MarketingFooter({ mobileTheme }: MarketingFooterProps) {
   return (
     <footer className={mobileTheme ? "border-t border-[var(--border)] py-12" : "border-t border-[var(--border)] py-12"}>
-      <div className="mx-auto w-full max-w-6xl px-4 md:px-6">
+      <ScrollReveal className="mx-auto w-full max-w-6xl px-4 md:px-6">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="mb-4 flex items-center gap-2">
@@ -66,7 +69,7 @@ export function MarketingFooter({ mobileTheme }: MarketingFooterProps) {
         <div className="mt-10 border-t border-[var(--border)] pt-6 text-center text-xs text-muted">
           (c) 2026 LeadFlow CRM. All rights reserved.
         </div>
-      </div>
+      </ScrollReveal>
     </footer>
   );
 }

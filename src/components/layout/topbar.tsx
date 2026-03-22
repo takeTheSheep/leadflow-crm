@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { signOut } from "next-auth/react";
-import { Bell, Check, CheckCheck, ChevronDown, LogOut, Menu, Settings, UserRound } from "lucide-react";
-import { CommandSearch } from "@/components/common/command-search";
+import { Bell, LogOut, Menu, Settings } from "lucide-react";
 import { OwnerAvatar } from "@/components/common/owner-avatar";
 
 type TopbarProps = {
@@ -20,10 +19,7 @@ type NotificationItem = {
   description: string;
   href: string;
   createdAtLabel: string;
-  read: boolean;
 };
-
-const notificationStorageKey = "leadflow:topbar-notifications";
 
 const defaultNotifications: NotificationItem[] = [
   {
@@ -32,67 +28,14 @@ const defaultNotifications: NotificationItem[] = [
     description: "Review high-priority reminders in the activity center.",
     href: "/activity",
     createdAtLabel: "2m ago",
-    read: false,
-  },
-  {
-    id: "notif-overdue-tasks",
-    title: "2 tasks are overdue",
-    description: "Pipeline response SLA is at risk for two opportunities.",
-    href: "/dashboard",
-    createdAtLabel: "8m ago",
-    read: false,
-  },
-  {
-    id: "notif-source-spike",
-    title: "Referral source conversion increased",
-    description: "Open analytics to review source-level performance details.",
-    href: "/analytics",
-    createdAtLabel: "21m ago",
-    read: true,
   },
 ];
 
-export function Topbar({ userName, userImage, workspaceName, onOpenSidebar }: TopbarProps) {
+export function Topbar({ userName, userImage, onOpenSidebar }: TopbarProps) {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
-  const [notifications, setNotifications] = useState<NotificationItem[]>(defaultNotifications);
-  const [notificationsLoaded, setNotificationsLoaded] = useState(false);
   const notificationsRef = useRef<HTMLDivElement>(null);
   const profileRef = useRef<HTMLDivElement>(null);
-
-  const unreadCount = notifications.filter((item) => !item.read).length;
-
-  const date = new Intl.DateTimeFormat("en-US", {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-  }).format(new Date());
-
-  useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem(notificationStorageKey);
-      if (!raw) {
-        return;
-      }
-
-      const parsed = JSON.parse(raw) as NotificationItem[];
-      if (Array.isArray(parsed)) {
-        setNotifications(parsed);
-      }
-    } catch {
-      // Ignore invalid local storage payloads and keep defaults.
-    } finally {
-      setNotificationsLoaded(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!notificationsLoaded) {
-      return;
-    }
-
-    window.localStorage.setItem(notificationStorageKey, JSON.stringify(notifications));
-  }, [notifications, notificationsLoaded]);
 
   useEffect(() => {
     const onPointerDown = (event: MouseEvent) => {
@@ -107,145 +50,53 @@ export function Topbar({ userName, userImage, workspaceName, onOpenSidebar }: To
       }
     };
 
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setNotificationsOpen(false);
-        setProfileOpen(false);
-      }
-    };
-
     document.addEventListener("mousedown", onPointerDown);
-    document.addEventListener("keydown", onKeyDown);
-
-    return () => {
-      document.removeEventListener("mousedown", onPointerDown);
-      document.removeEventListener("keydown", onKeyDown);
-    };
+    return () => document.removeEventListener("mousedown", onPointerDown);
   }, []);
 
-  const markNotificationRead = (id: string) => {
-    setNotifications((current) => current.map((item) => (item.id === id ? { ...item, read: true } : item)));
-  };
-
-  const markAllNotificationsRead = () => {
-    setNotifications((current) => current.map((item) => ({ ...item, read: true })));
-  };
-
   return (
-    <header className="sticky top-0 z-20 -mx-4 mb-6 border-b border-[var(--border)] bg-white/88 px-4 backdrop-blur md:-mx-6 md:px-6 xl:-mx-8 xl:px-8">
-      <div className="mx-auto flex h-16 w-full max-w-[1400px] items-center justify-between gap-3">
-        <div className="flex min-w-0 items-center gap-3">
-          <button
-            type="button"
-            className="ring-focus inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] bg-white text-heading transition hover:bg-[var(--background-soft)] lg:hidden"
-            onClick={onOpenSidebar}
-            aria-label="Open sidebar"
-          >
-            <Menu className="h-5 w-5" aria-hidden />
-          </button>
-          <div className="min-w-0">
-            <p className="truncate text-sm font-semibold text-heading">{workspaceName}</p>
-            <p className="text-xs text-muted">{date}</p>
-          </div>
-        </div>
+    <header className="h-16 shrink-0 border-b border-[var(--border)] bg-white">
+      <div className="flex h-full items-center justify-between px-4 lg:px-6">
+        <button
+          type="button"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-heading transition hover:bg-[var(--background-soft)] lg:hidden"
+          onClick={onOpenSidebar}
+          aria-label="Open sidebar"
+        >
+          <Menu className="h-5 w-5" aria-hidden />
+        </button>
 
-        <div className="hidden md:block">
-          <CommandSearch />
-        </div>
+        <div className="hidden lg:block" />
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <div className="relative" ref={notificationsRef}>
             <button
               type="button"
-              className="ring-focus relative inline-flex h-10 w-10 items-center justify-center rounded-lg border border-[var(--border)] bg-white text-muted transition hover:border-[var(--blue)]/35 hover:text-heading"
+              className="relative inline-flex h-10 w-10 items-center justify-center rounded-lg text-muted transition hover:bg-[var(--background-soft)] hover:text-heading"
               aria-label="Notifications"
-              aria-expanded={notificationsOpen}
               onClick={() => {
-              setNotificationsOpen(false);
                 setNotificationsOpen((current) => !current);
                 setProfileOpen(false);
               }}
             >
               <Bell className="h-4 w-4" aria-hidden />
-              {unreadCount > 0 ? (
-                <span className="absolute -right-1 -top-1 inline-flex min-h-4 min-w-4 items-center justify-center rounded-full bg-[var(--rose)] px-1 text-[10px] font-semibold text-white">
-                  {unreadCount}
-                </span>
-              ) : null}
+              <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-[var(--teal)]" />
             </button>
 
             {notificationsOpen ? (
-              <section className="surface-card absolute right-0 z-30 mt-2 w-80 p-3">
-                <div className="mb-2 flex items-center justify-between">
-                  <p className="text-sm font-semibold text-heading">Notifications</p>
-                  <span className="text-xs text-muted">{unreadCount} unread</span>
-                </div>
-
-                <div className="mb-2 flex items-center justify-between">
-                  <button
-                    type="button"
-                    className="ring-focus inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-medium text-[var(--blue-deep)] hover:bg-[var(--blue-soft)]"
-                    onClick={markAllNotificationsRead}
-                    disabled={unreadCount === 0}
-                  >
-                    <CheckCheck className="h-3.5 w-3.5" aria-hidden />
-                    Mark all read
-                  </button>
-                  <Link
-                    href="/activity"
-                    className="ring-focus inline-flex items-center rounded-lg px-2 py-1 text-xs font-medium text-[var(--blue-deep)] hover:bg-[var(--blue-soft)]"
-                    onClick={() => setNotificationsOpen(false)}
-                  >
-                    Open activity
-                  </Link>
-                </div>
-
+              <section className="surface-card absolute right-0 z-30 mt-2 w-72 p-3">
+                <p className="mb-2 text-sm font-semibold text-heading">Notifications</p>
                 <ul className="space-y-2">
-                  {notifications.map((notification) => (
-                    <li
-                      key={notification.id}
-                      className={`rounded-xl border p-3 transition ${notification.read ? "border-[var(--border)] bg-white/75" : "border-[var(--blue)]/25 bg-[var(--blue-soft)]/45"}`}
-                    >
-                      <div className="flex items-start justify-between gap-2">
-                        <Link
-                          href={notification.href}
-                          onClick={() => {
-                            markNotificationRead(notification.id);
-                            setNotificationsOpen(false);
-                          }}
-                          className="ring-focus min-w-0 flex-1 rounded-lg"
-                        >
-                          <p className="text-sm font-medium text-heading">{notification.title}</p>
-                          <p className="mt-1 text-xs text-muted">{notification.description}</p>
-                          <p className="mt-1 text-[11px] text-muted">{notification.createdAtLabel}</p>
-                        </Link>
-
-                        {!notification.read ? (
-                          <button
-                            type="button"
-                            onClick={() => markNotificationRead(notification.id)}
-                            className="ring-focus inline-flex h-7 w-7 items-center justify-center rounded-md text-[var(--blue-deep)] transition hover:bg-white/80"
-                            aria-label={`Mark ${notification.title} as read`}
-                          >
-                            <Check className="h-3.5 w-3.5" aria-hidden />
-                          </button>
-                        ) : (
-                          <span className="inline-flex h-7 items-center rounded-md px-2 text-[11px] text-muted">Read</span>
-                        )}
-                      </div>
+                  {defaultNotifications.map((notification) => (
+                    <li key={notification.id} className="rounded-xl bg-[var(--background-soft)]/72 p-3">
+                      <Link href={notification.href} className="block" onClick={() => setNotificationsOpen(false)}>
+                        <p className="text-sm font-medium text-heading">{notification.title}</p>
+                        <p className="mt-1 text-xs text-muted">{notification.description}</p>
+                        <p className="mt-1 text-[11px] text-muted">{notification.createdAtLabel}</p>
+                      </Link>
                     </li>
                   ))}
                 </ul>
-
-                <div className="mt-3 border-t border-[var(--border)] pt-2">
-                  <Link
-                    href="/activity"
-                    className="ring-focus inline-flex w-full items-center justify-center rounded-lg px-3 py-2 text-sm font-medium text-[var(--blue-deep)] hover:bg-[var(--blue-soft)]"
-                    onClick={() => setNotificationsOpen(false)}
-                  >
-                    Open Activity Center
-                  </Link>
-                </div>
               </section>
             ) : null}
           </div>
@@ -253,46 +104,35 @@ export function Topbar({ userName, userImage, workspaceName, onOpenSidebar }: To
           <div className="relative" ref={profileRef}>
             <button
               type="button"
-              className="ring-focus inline-flex items-center gap-1 rounded-lg border border-[var(--border)] bg-white px-1 py-1 text-muted transition hover:border-[var(--blue)]/35 hover:text-heading"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-transparent"
               aria-label="Profile menu"
-              aria-expanded={profileOpen}
               onClick={() => {
                 setProfileOpen((current) => !current);
                 setNotificationsOpen(false);
               }}
             >
-              <OwnerAvatar name={userName} image={userImage} className="h-8 w-8 border-transparent" />
-              <ChevronDown className="mr-1 h-4 w-4" aria-hidden />
+              <OwnerAvatar name={userName} image={userImage} className="h-10 w-10 border-transparent" />
             </button>
 
             {profileOpen ? (
               <section className="surface-card absolute right-0 z-30 mt-2 w-56 p-2">
                 <div className="px-2 py-2">
                   <p className="text-sm font-semibold text-heading">{userName}</p>
-                  <p className="text-xs text-muted">{workspaceName}</p>
                 </div>
                 <div className="my-1 h-px bg-[var(--border)]" />
 
                 <nav className="space-y-1">
                   <Link
                     href="/settings"
-                    className="ring-focus inline-flex w-full items-center gap-2 rounded-lg px-2 py-2 text-sm text-heading hover:bg-[var(--blue-soft)]"
+                    className="inline-flex w-full items-center gap-2 rounded-lg px-2 py-2 text-sm text-heading hover:bg-[var(--background-soft)]"
                     onClick={() => setProfileOpen(false)}
                   >
-                    <Settings className="h-4 w-4 text-[var(--blue)]" aria-hidden />
-                    Account settings
+                    <Settings className="h-4 w-4 text-muted" aria-hidden />
+                    Settings
                   </Link>
                   <button
                     type="button"
-                    className="ring-focus inline-flex w-full items-center gap-2 rounded-lg px-2 py-2 text-sm text-heading hover:bg-[var(--background-soft)]"
-                    onClick={() => signOut({ callbackUrl: "/login" })}
-                  >
-                    <UserRound className="h-4 w-4 text-[var(--violet)]" aria-hidden />
-                    Change account
-                  </button>
-                  <button
-                    type="button"
-                    className="ring-focus inline-flex w-full items-center gap-2 rounded-lg px-2 py-2 text-sm text-[var(--rose)] hover:bg-[var(--rose-soft)]"
+                    className="inline-flex w-full items-center gap-2 rounded-lg px-2 py-2 text-sm text-[var(--rose)] hover:bg-[var(--rose-soft)]"
                     onClick={() => signOut({ callbackUrl: "/login" })}
                   >
                     <LogOut className="h-4 w-4" aria-hidden />
@@ -307,4 +147,3 @@ export function Topbar({ userName, userImage, workspaceName, onOpenSidebar }: To
     </header>
   );
 }
-

@@ -74,13 +74,14 @@ export function RegisterForm() {
       <div className="grid gap-3 md:grid-cols-2">
         <label className="space-y-1 text-sm">
           <span className="text-muted">Your name</span>
-          <input {...form.register("name")} className="field-base" />
+          <input autoComplete="name" {...form.register("name")} className="field-base" />
           {errors.name ? <p className="text-xs text-rose-600">{errors.name.message}</p> : null}
         </label>
 
         <label className="space-y-1 text-sm">
           <span className="text-muted">Workspace name</span>
           <input
+            autoComplete="organization"
             {...form.register("workspaceName")}
             className="field-base"
           />
@@ -98,7 +99,7 @@ export function RegisterForm() {
 
       <label className="space-y-1 text-sm">
         <span className="text-muted">Email</span>
-        <input type="email" {...form.register("email")} className="field-base" />
+        <input type="email" autoComplete="email" {...form.register("email")} className="field-base" />
         {errors.email ? <p className="text-xs text-rose-600">{errors.email.message}</p> : null}
       </label>
 
@@ -108,6 +109,7 @@ export function RegisterForm() {
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
+              autoComplete="new-password"
               {...form.register("password")}
               className="field-base pr-11"
             />
@@ -132,6 +134,7 @@ export function RegisterForm() {
           <div className="relative">
             <input
               type={showConfirmPassword ? "text" : "password"}
+              autoComplete="new-password"
               {...form.register("confirmPassword")}
               className="field-base pr-11"
             />

@@ -58,7 +58,7 @@ export function LoginForm() {
 
       <label className="space-y-1 text-sm">
         <span className="text-heading">Email</span>
-        <input type="email" {...form.register("email")} className="field-base" />
+        <input type="email" autoComplete="username" {...form.register("email")} className="field-base" />
       </label>
 
       <label className="space-y-1 text-sm">
@@ -66,6 +66,7 @@ export function LoginForm() {
         <div className="relative">
           <input
             type={showPassword ? "text" : "password"}
+            autoComplete="current-password"
             {...form.register("password")}
             className="field-base pr-10"
           />

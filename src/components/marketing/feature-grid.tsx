@@ -1,4 +1,7 @@
+"use client";
+
 import { BarChart3, Bell, Filter, Kanban, Shield, Users } from "lucide-react";
+import { ScrollReveal } from "@/components/common/scroll-reveal";
 
 const features = [
   {
@@ -37,22 +40,24 @@ export function FeatureGrid() {
   return (
     <section id="features" className="py-20 md:py-28">
       <div className="mx-auto w-full max-w-6xl px-4 md:px-6">
-        <div className="mx-auto mb-14 max-w-2xl text-center">
+        <ScrollReveal className="mx-auto mb-14 max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight text-heading md:text-4xl">Everything your sales team needs</h2>
           <p className="mt-4 text-base text-muted md:text-lg">
             From lead capture to closed deal, a complete toolbox built for speed and clarity.
           </p>
-        </div>
+        </ScrollReveal>
 
         <div className="grid gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
-          {features.map((feature) => (
-            <article key={feature.title} className="surface-card h-full p-6 md:p-8">
-              <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--blue)]/10 text-[var(--blue)]">
-                <feature.icon className="h-5 w-5" aria-hidden />
-              </div>
-              <h3 className="text-lg font-semibold text-heading">{feature.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-body">{feature.description}</p>
-            </article>
+          {features.map((feature, index) => (
+            <ScrollReveal key={feature.title} delay={index * 80}>
+              <article className="surface-card h-full p-6 md:p-8">
+                <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--blue)]/10 text-[var(--blue)]">
+                  <feature.icon className="h-5 w-5" aria-hidden />
+                </div>
+                <h3 className="text-lg font-semibold text-heading">{feature.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-body">{feature.description}</p>
+              </article>
+            </ScrollReveal>
           ))}
         </div>
       </div>

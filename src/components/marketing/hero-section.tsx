@@ -21,23 +21,23 @@ export function HeroSection() {
 
       <div className="relative z-10 mx-auto w-full max-w-6xl px-4 py-24 text-center md:px-6 md:py-32">
         <div className="mx-auto max-w-4xl">
-          <span className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 text-xs font-medium text-white/90 backdrop-blur-sm">
+          <span className="animate-reveal mb-6 inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1.5 text-xs font-medium text-white/90 backdrop-blur-sm">
             <Zap className="h-3.5 w-3.5" aria-hidden />
             Now with AI-powered lead scoring
           </span>
 
-          <h1 className="text-4xl font-extrabold leading-[1.05] tracking-tight !text-white sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="animate-reveal text-4xl font-extrabold leading-[1.05] tracking-tight !text-white sm:text-5xl md:text-6xl lg:text-7xl">
             Close more deals,
             <br />
             faster than ever
           </h1>
 
-          <p className="mx-auto mb-10 mt-6 max-w-2xl text-base leading-relaxed text-white/75 sm:text-lg md:text-xl">
+          <p className="animate-reveal-delayed mx-auto mb-10 mt-6 max-w-2xl text-base leading-relaxed text-white/75 sm:text-lg md:text-xl">
             The CRM built for modern sales teams. Capture leads, manage pipelines, and convert prospects into loyal
             customers, all in one place.
           </p>
 
-          <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+          <div className="animate-reveal-delayed-2 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
             <Link href="/register">
               <Button className="h-12 w-full border border-white/20 bg-white/12 px-8 text-base text-white shadow-none hover:bg-white/18 sm:w-auto">
                 Start Free Trial
@@ -51,7 +51,7 @@ export function HeroSection() {
             </Link>
           </div>
 
-          <div className="mx-auto mt-16 grid max-w-md grid-cols-3 gap-4 sm:gap-8">
+          <div className="animate-reveal-delayed-2 mx-auto mt-16 grid max-w-md grid-cols-3 gap-4 sm:gap-8">
             {stats.map((stat) => (
               <div key={stat.label} className="text-center">
                 <stat.icon className="mx-auto mb-2 h-5 w-5 text-white/55" aria-hidden />

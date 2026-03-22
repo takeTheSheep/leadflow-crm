@@ -1,4 +1,3 @@
-import { PageHeader } from "@/components/common/page-header";
 import { PipelineBoard } from "@/components/dashboard/pipeline-board";
 import { getLeadListData } from "@/server/queries/lead-queries";
 
@@ -7,10 +6,10 @@ export default async function PipelinePage() {
 
   return (
     <div>
-      <PageHeader
-        title="Pipeline"
-        description="Visualize deal movement by stage with value totals and quick stage transitions."
-      />
+      <div className="mb-4">
+        <h1 className="text-2xl font-bold tracking-tight text-heading">Pipeline</h1>
+        <p className="mt-0.5 text-sm text-muted">Drag deals through your sales stages</p>
+      </div>
       <PipelineBoard leads={data.leads} />
     </div>
   );

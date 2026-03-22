@@ -6,7 +6,7 @@ export default function LoginPage() {
   return (
     <main className="flex min-h-screen bg-white">
       <section className="flex flex-1 items-center justify-center px-6 py-10 sm:px-10 lg:px-16">
-        <div className="w-full max-w-md">
+        <div className="animate-reveal w-full max-w-md">
           <Link href="/" className="mb-10 inline-flex items-center gap-3">
             <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl hero-gradient text-sm font-bold text-white">
               LF
@@ -28,7 +28,7 @@ export default function LoginPage() {
             backgroundSize: "32px 32px",
           }}
         />
-        <div className="relative z-10 max-w-md text-center">
+        <div className="animate-reveal relative z-10 max-w-md text-center">
           <h2 className="text-3xl font-bold text-white">Your pipeline, finally under control.</h2>
           <p className="mt-4 text-lg leading-relaxed text-white/75">
             Track every lead from first touch to closed deal with a CRM designed for speed, visibility, and clean execution.
