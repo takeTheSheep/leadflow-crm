@@ -97,17 +97,103 @@ export function HeroSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden rounded-[28px] border border-white/60 bg-gradient-to-br from-white via-[var(--panel)] to-[var(--background-soft)] p-8 shadow-[0_30px_70px_-36px_rgba(36,56,110,0.35)] md:p-12"
+      className="relative overflow-hidden rounded-[32px] border border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(79,124,255,0.28),transparent_38%),linear-gradient(180deg,#101b2f_0%,#09111f_100%)] p-5 shadow-[0_34px_90px_-56px_rgba(0,0,0,0.88)] md:rounded-[28px] md:border-white/60 md:bg-gradient-to-br md:from-white md:via-[var(--panel)] md:to-[var(--background-soft)] md:p-12 md:shadow-[0_30px_70px_-36px_rgba(36,56,110,0.35)]"
       onMouseMove={(event) => {
         setTargetFromPointer(event.clientX, event.clientY);
       }}
     >
       <div
         ref={glowRef}
-        className="pointer-events-none absolute -z-0 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(79,124,255,0.24)_0%,rgba(139,124,255,0.14)_42%,transparent_72%)] blur-2xl transition-opacity duration-200 will-change-transform"
+        className="pointer-events-none absolute -z-0 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(79,124,255,0.28)_0%,rgba(139,124,255,0.18)_42%,transparent_72%)] blur-2xl transition-opacity duration-200 will-change-transform md:bg-[radial-gradient(circle,rgba(79,124,255,0.24)_0%,rgba(139,124,255,0.14)_42%,transparent_72%)]"
       />
 
-      <div className="relative z-10 grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+      <div className="relative z-10 md:hidden">
+        <p className="inline-flex rounded-full border border-white/12 bg-white/[0.08] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-200">
+          Sales Operations Platform
+        </p>
+        <h1 className="mt-4 max-w-[11ch] text-[clamp(2.35rem,11vw,3.8rem)] font-semibold leading-[0.98] !text-white">
+          Organize leads, move deals, convert faster.
+        </h1>
+        <p className="mt-4 max-w-[29ch] text-sm leading-6 text-slate-300">
+          LeadFlow CRM gives modern sales teams one premium workspace for pipeline visibility, follow-up execution, and
+          faster demo-ready decisions.
+        </p>
+
+        <div className="mt-4 flex flex-wrap gap-2 text-[11px] font-medium text-slate-300">
+          <span className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1.5">For sales teams</span>
+          <span className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1.5">Built for RevOps</span>
+          <span className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1.5">Demo in minutes</span>
+        </div>
+
+        <div className="mt-6 flex flex-col gap-3">
+          <Link href="/register" className="block">
+            <Button className="h-12 w-full justify-between rounded-2xl px-5 text-sm">
+              Start Demo Workspace
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Button>
+          </Link>
+          <Link href="/features" className="block">
+            <Button variant="secondary" className="h-12 w-full rounded-2xl border-white/12 bg-white/[0.06] px-5 text-slate-100 hover:border-white/20 hover:bg-white/10">
+              <PlayCircle className="mr-2 h-4 w-4" aria-hidden />
+              Explore Product
+            </Button>
+          </Link>
+        </div>
+
+        <p className="mt-3 text-xs text-slate-400">240+ teams already use LeadFlow to keep response time and ownership under control.</p>
+
+        <div className="mt-6 rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(16,27,47,0.96),rgba(8,15,28,0.98))] p-4 shadow-[0_28px_56px_-34px_rgba(0,0,0,0.78)]">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-400">Pipeline snapshot</p>
+              <p className="mt-1 text-base font-semibold !text-white">Live team view</p>
+            </div>
+            <span className="rounded-full bg-emerald-500/12 px-3 py-1 text-xs font-semibold text-emerald-300">+18% QoQ</span>
+          </div>
+
+          <div className="mt-4 grid grid-cols-2 gap-3">
+            <div className="rounded-2xl border border-white/[0.08] bg-white/[0.06] p-3">
+              <p className="text-[11px] uppercase tracking-[0.16em] text-slate-400">Qualified</p>
+              <p className="mt-2 text-xl font-semibold text-white">124</p>
+              <p className="text-xs text-slate-400">Leads ready to advance</p>
+            </div>
+            <div className="rounded-2xl border border-white/[0.08] bg-white/[0.06] p-3">
+              <p className="text-[11px] uppercase tracking-[0.16em] text-slate-400">Follow-ups due</p>
+              <p className="mt-2 text-xl font-semibold text-white">19</p>
+              <p className="text-xs text-slate-400">Tasks due today</p>
+            </div>
+            <div className="rounded-2xl border border-white/[0.08] bg-white/[0.06] p-3">
+              <p className="text-[11px] uppercase tracking-[0.16em] text-slate-400">Forecast</p>
+              <p className="mt-2 text-xl font-semibold text-white">$472k</p>
+              <p className="text-xs text-slate-400">Active revenue in view</p>
+            </div>
+            <div className="rounded-2xl border border-white/[0.08] bg-white/[0.06] p-3">
+              <p className="text-[11px] uppercase tracking-[0.16em] text-slate-400">Avg response</p>
+              <p className="mt-2 text-xl font-semibold text-white">3.6h</p>
+              <p className="text-xs text-slate-400">Median reply speed</p>
+            </div>
+          </div>
+
+          <div className="mt-4 grid gap-2">
+            <div className="flex items-center justify-between rounded-2xl border border-white/[0.08] bg-white/[0.06] px-3 py-3">
+              <div>
+                <p className="text-sm font-medium !text-white">Referral lead scored 87</p>
+                <p className="text-xs text-slate-400">Qualified and ready for assignment</p>
+              </div>
+              <span className="rounded-full bg-emerald-500/12 px-2.5 py-1 text-[11px] font-semibold text-emerald-300">Hot</span>
+            </div>
+            <div className="flex items-center justify-between rounded-2xl border border-white/[0.08] bg-white/[0.06] px-3 py-3">
+              <div>
+                <p className="text-sm font-medium !text-white">Proposal sent to Northline</p>
+                <p className="text-xs text-slate-400">Follow-up sequence scheduled</p>
+              </div>
+              <span className="rounded-full bg-sky-500/12 px-2.5 py-1 text-[11px] font-semibold text-sky-300">Tracked</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="relative z-10 hidden gap-8 md:grid lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
         <div>
           <p className="mb-4 inline-flex rounded-full border border-[var(--blue)]/25 bg-[var(--blue-soft)] px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--blue-deep)]">
             Sales Operations Platform
